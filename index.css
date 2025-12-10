@@ -1,0 +1,896 @@
+
+:root {
+  --roblox-dark: #1b1b1b;
+  --roblox-darker: #121212;
+  --roblox-card: #232527;
+  --roblox-blue: #00b06f; /* Green/Blue distinctive of modern Roblox/Gaming */
+  --text-primary: #ffffff;
+  --text-secondary: #adadad;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Gotham', 'Inter', 'Helvetica Neue', sans-serif;
+  background-color: var(--roblox-darker);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: none; /* Hide default cursor */
+  height: 100vh;
+  width: 100vw;
+}
+
+/* The custom cursor element */
+.jelly-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none; /* Let clicks pass through */
+  z-index: 9999;
+  transform-origin: center center;
+  will-change: transform;
+  
+  /* Background properties for images */
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.jelly-cursor.pixelated {
+  image-rendering: pixelated;
+}
+
+@keyframes rainbow-hue {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+
+.jelly-cursor.rainbow {
+  animation: rainbow-hue 2s linear infinite;
+}
+
+/* Layout Structure */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Top Bar */
+.roblox-topbar {
+  height: 50px;
+  background-color: #232527;
+  border-bottom: 1px solid #393b3d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.pro-badge {
+  background: var(--roblox-blue);
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.roblox-topbar nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 20px;
+  font-size: 1rem;
+  transition: color 0.2s;
+  cursor: none; /* maintain cursor illusion */
+}
+
+.roblox-topbar nav a:hover, .roblox-topbar nav a.active {
+  color: #fff;
+}
+
+.search-section {
+  flex-grow: 1;
+  max-width: 600px;
+  margin: 0 20px;
+}
+
+.search-section input {
+  width: 100%;
+  background: #121212;
+  border: 1px solid #393b3d;
+  padding: 8px 15px;
+  border-radius: 50px;
+  color: #fff;
+  font-family: inherit;
+  outline: none;
+  cursor: none;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-btn {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #393b3d;
+  padding: 4px 12px 4px 4px;
+  border-radius: 50px;
+}
+
+.user-avatar img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #555;
+}
+
+.user-avatar span {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Content Area */
+.content-area {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.roblox-sidebar {
+  width: 200px;
+  background: #1b1b1b;
+  padding: 20px 10px;
+  flex-shrink: 0;
+  border-right: 1px solid #232527;
+}
+
+.roblox-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.roblox-sidebar li {
+  padding: 10px 15px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  cursor: none;
+  transition: background 0.2s;
+}
+
+.roblox-sidebar li:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.roblox-sidebar li.active {
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  border-left: 3px solid var(--roblox-blue);
+}
+
+.games-container {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.games-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.game-card {
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: none;
+  transition: transform 0.2s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+.game-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-color: #333;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.game-info {
+  padding: 10px 0;
+}
+
+.game-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.game-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.demo-hint {
+  margin-top: 40px;
+  padding: 20px;
+  background: rgba(0, 176, 111, 0.1);
+  border: 1px solid var(--roblox-blue);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.interactive-btn {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 4px;
+  cursor: none;
+  transition: all 0.2s;
+}
+
+.interactive-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  cursor: none; /* Keep custom cursor */
+}
+
+.modal-content {
+  background: #232527;
+  width: 700px;
+  max-width: 90%;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: none;
+  z-index: 2;
+  line-height: 1;
+}
+
+.modal-header {
+  padding: 30px;
+  display: flex;
+  gap: 20px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), transparent);
+}
+
+.modal-game-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+}
+
+.modal-game-details {
+  flex: 1;
+}
+
+.modal-game-details h2 {
+  margin: 0 0 5px 0;
+  font-size: 2rem;
+}
+
+.modal-creator {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.modal-creator .highlight {
+  color: #fff;
+  font-weight: bold;
+}
+
+.modal-desc {
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Specific Roblox Button Styles */
+.btn-common-play-game-lg {
+  background-color: #00b06f;
+  border: none;
+  border-radius: 8px;
+  height: 50px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none;
+  transition: background-color 0.2s, transform 0.1s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-common-play-game-lg:hover {
+  background-color: #009e63;
+}
+
+.btn-common-play-game-lg:active {
+  transform: scale(0.98);
+}
+
+.icon-common-play {
+  display: block;
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 18px solid #fff;
+  margin-left: 4px; /* Optical centering */
+}
+
+.btn-common-play-game-lg:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.modal-stats-row {
+  display: flex;
+  border-top: 1px solid #393b3d;
+  padding: 20px 30px;
+  background: #1b1b1b;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #393b3d;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Roblox Client Simulation */
+.roblox-client {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.client-header {
+  height: 40px;
+  background: #2d2d2d;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  color: #fff;
+  font-size: 0.8rem;
+  border-bottom: 1px solid #444;
+}
+
+.roblox-logo-simple {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 4px solid #2d2d2d;
+  outline: 1px solid #fff;
+  border-radius: 4px;
+  cursor: none;
+}
+
+.client-menu-icon {
+  margin-right: 15px;
+}
+
+.client-status {
+  background: #000;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.client-controls-hint {
+  margin-left: auto;
+  opacity: 0.5;
+}
+
+.client-viewport {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+.generic-game-view {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.loader-overlay {
+  background: rgba(0,0,0,0.7);
+  padding: 20px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+/* Fake UI */
+.leaderboard {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 160px;
+  background: rgba(30,30,30,0.8);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.8rem;
+  overflow: hidden;
+}
+
+.lb-header {
+  background: rgba(50,50,50,0.9);
+  padding: 5px 8px;
+  font-weight: bold;
+}
+
+.lb-row {
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.lb-row.me {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-box {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 250px;
+  height: 200px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 8px;
+  overflow-y: auto;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.chat-messages p {
+  margin: 4px 0;
+}
+
+.chat-input {
+  background: rgba(255,255,255,0.2);
+  padding: 5px;
+  color: #ccc;
+  font-style: italic;
+}
+
+/* Natural Disaster Mini-Game CSS */
+.nd-game-container {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 60%, #006994 60%);
+  position: relative;
+  overflow: hidden;
+  cursor: none; /* Keep using custom cursor */
+}
+
+.nd-sky {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.nd-game-title {
+  font-size: 2rem;
+  color: #FF4500;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0px #fff;
+  z-index: 10;
+  animation: pulse-alert 1s infinite;
+}
+
+@keyframes pulse-alert {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.nd-cloud {
+  position: absolute;
+  font-size: 5rem;
+  opacity: 0.8;
+}
+
+.nd-cloud.c1 { top: 20px; left: 10%; animation: float 20s infinite linear; }
+.nd-cloud.c2 { top: 60px; right: 20%; animation: float 25s infinite linear reverse; }
+
+@keyframes float {
+  from { transform: translateX(-50px); }
+  to { transform: translateX(50px); }
+}
+
+.nd-meteor {
+  position: absolute;
+  top: -50px;
+  font-size: 3rem;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  from { top: -50px; transform: rotate(0deg); }
+  to { top: 110%; transform: rotate(45deg); }
+}
+
+.nd-ocean {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.nd-island {
+  width: 60%;
+  height: 80%;
+  background: #228B22;
+  border-radius: 50% 50% 0 0;
+  position: relative;
+  box-shadow: 0 10px 0 #1b6ca8;
+}
+
+.nd-tower {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 6rem;
+}
+
+.nd-tree {
+  position: absolute;
+  font-size: 3rem;
+  bottom: 10px;
+}
+.nd-tree.t1 { left: 20%; }
+.nd-tree.t2 { right: 20%; }
+
+.nd-player-hint {
+  position: absolute;
+  bottom: -40px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Controls Panel */
+.controls-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(35, 37, 39, 0.85);
+  backdrop-filter: blur(15px);
+  padding: 0;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  z-index: 10000;
+  width: 280px;
+  transition: width 0.3s ease, height 0.3s ease;
+  overflow: hidden;
+}
+
+.controls-panel.minimized {
+  width: 280px;
+  height: 50px; 
+}
+
+.panel-header {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: none;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.minimize-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: none;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.minimize-btn:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.panel-content {
+  padding: 20px;
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.control-group select,
+.control-group input[type="text"],
+.control-group input[type="range"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(0,0,0,0.3);
+  color: white;
+  font-family: inherit;
+  outline: none;
+  cursor: none;
+}
+
+.color-picker-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+input[type="color"] {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: none;
+}
+
+.rainbow-toggle {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.rainbow-toggle input {
+  margin-right: 8px;
+  width: auto;
+  cursor: none;
+}
+
+.preset-images {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.preset-images button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 1.2rem;
+  cursor: none;
+  flex: 1;
+}
+
+.preset-images button:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Music Player */
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(35, 37, 39, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 10px 15px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  z-index: 9998;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s;
+}
+
+.music-player.playing {
+  border-color: var(--roblox-blue);
+  box-shadow: 0 0 15px rgba(0, 176, 111, 0.3);
+}
+
+.music-icon {
+  background: #333;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+.music-info {
+  display: flex;
+  flex-direction: column;
+  width: 140px;
+}
+
+.music-info .label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.music-info .track-name {
+  font-size: 0.8rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.play-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
